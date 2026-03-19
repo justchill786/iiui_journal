@@ -1,6 +1,6 @@
-// server.js
 const express = require('express');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
@@ -19,6 +19,33 @@ app.set('trust proxy', 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
+
+// ✅ Database session store banao
+const sessionStore = new MySQLStore({
+    host: process.env.DB_HOST,
+    port: 3306,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    clearExpired: true,
+    checkExpirationInterval: 900000, // 15 minutes
+    expiration: 86400000 // 24 hours
+});
+
+// ✅ Updated session configuration
+app.use(session({
+    key: 'iiui_session_cookie',
+    secret: process.env.SESSION_SECRET || 'iiuiJournalSecretKey2026',
+    store: sessionStore, // ✅ YEH ADD KARO (ab database mein save hoga)
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        sameSite: 'lax'
+    }
+}));
 
 // Session configuration
 app.use(session({
