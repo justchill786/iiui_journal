@@ -297,6 +297,12 @@
                     <div class="post-description">
                         <%= post.description.substring(0, 150) %><% if (post.description.length > 150) { %>...<% } %>
                     </div>
+                    <!-- YEH ADD KARO - small hint -->
+    <div style="margin-top: 10px; font-size: 13px; color: #888; text-align: right;">
+        <span style="background: #f0f0f0; padding: 3px 8px; border-radius: 3px;">
+             Click on title to view & reply.
+        </span>
+    </div>
                 </li>
             <% }) %>
         </ul>
