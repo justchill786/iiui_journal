@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IIUI Journal - About Us</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #3b5998;
+            padding: 15px 0;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: white;
+            font-size: 24px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .header a:hover { text-decoration: underline; }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        /* Menu toggle - hidden by default on desktop */
+.menu-toggle {
+    display: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    user-select: none;
+}
+        .main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+        .page-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .page-header h2 { 
+            color: #333; 
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .about-content {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 40px;
+        }
+        
+        .about-section {
+            margin-bottom: 35px;
+        }
+        
+        .about-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .about-section h3 {
+            color: #3b5998;
+            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: normal;
+        }
+        
+        .about-section p {
+            color: #000000;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .about-section ul {
+            margin: 15px 0 15px 30px;
+            color: #000000;
+            line-height: 1.7;
+        }
+        
+        .about-section li {
+            margin-bottom: 8px;
+        }
+        
+        .mission-box {
+            background: #f0f7ff;
+            border-left: 4px solid #3b5998;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .mission-box p {
+            font-size: 18px;
+            font-style: italic;
+            color: #000000;
+            margin-bottom: 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            color: #3b5998;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .team-member {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 20px;
+        }
+        
+        .member-name {
+            font-size: 18px;
+            color: #3b5998;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .member-role {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .member-bio {
+            color: #000000;
+            font-size: 14px;
+        }
+        
+        
+        .values-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .value-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+        
+        .value-title {
+            font-weight: bold;
+            color: #3b5998;
+            margin-bottom: 5px;
+        }
+        
+        .value-desc {
+            color: #666;
+            font-size: 14px;
+        }
+        
+         /* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    font-size: 14px;
+    border-top: 1px solid #e9ebee;
+    margin-top: 30px;
+    position: relative;
+}
+
+.footer small {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-text {
+    color: #000000;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-links a {
+    color: #000000;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+        
+        @media (max-width: 700px) {
+            .stats-grid, .team-grid, .values-list {
+                grid-template-columns: 1fr;
+            }
+            .header-content {
+        flex-wrap: wrap;
+    }
+    
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        margin: 0;
+        padding: 12px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .menu-toggle {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+    .button {
+        width: 50%;
+        text-align: center;
+    }
+    .footer {
+        position: relative;
+        padding-bottom: 50px;
+    }
+    
+    .footer-links {
+        position: absolute;
+        right: 50%;
+        bottom: 10px;
+        top: auto;
+        transform: translateX(50%);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>IIUI Journal</h1>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="/home">Home</a>
+                <a href="/announcements">Announcements</a>
+                <a href="/blogs">Blogs</a>
+                <a href="/past-papers">Past Papers</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <div class="main">
+        <div class="page-header">
+            <h2>About IIUI Journal</h2>
+        </div>
+        
+        <div class="about-content">
+            <!-- Our Story -->
+            <div class="about-section">
+                <h3>Our Story</h3>
+                <p>IIUI Journal was created by backbenchers, for students of the International Islamic University Islamabad. Born from a random idea - that university life is better when we help each other - this platform brings together the entire IIUI community in one place.</p>
+                <p>What started as a small discussion board has grown into a comprehensive platform where students, professors, and staff can share knowledge, discuss issues, and build a stronger academic community.</p>
+            </div>
+            
+            <!-- Mission Statement -->
+            <div class="mission-box">
+                <p>"To create a supportive digital space where every member of the IIUI community can freely share knowledge, seek help, and contribute to academic excellence."</p>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="about-section">
+                <h3>IIUI Journal in Numbers</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">2026</div>
+                        <div class="stat-label">Founded</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">IIUI Members Only</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Community Support</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- What We Offer -->
+            <div class="about-section">
+                <h3>What We Offer</h3>
+                <ul>
+                    <li><strong>Discussion Forums:</strong> Post issues, get answers, help others with academic and campus life questions.</li>
+                    <li><strong>Blogs:</strong> Share your thoughts, experiences, and knowledge with the IIUI community.</li>
+                    <li><strong>Past Papers:</strong> Access and share exam papers to help with preparation.</li>
+                    <li><strong>Announcements:</strong> Stay updated with important news and events.</li>
+                </ul>
+            </div>
+            
+            <!-- Our Values -->
+            <div class="about-section">
+                <h3>Our Values</h3>
+                <div class="values-list">
+                    <div class="value-item">
+                        <div class="value-title">Islamic Principles</div>
+                        <div class="value-desc">Respect, honesty, and helping others guide everything we do.</div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-title">Academic Excellence</div>
+                        <div class="value-desc">Promoting learning and knowledge sharing among peers.</div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-title">Community First</div>
+                        <div class="value-desc">Building a supportive environment for all IIUI members.</div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-title">Simplicity</div>
+                        <div class="value-desc">Keeping things clean, minimal, and easy to use.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Who It's For -->
+            <div class="about-section">
+                <h3>Who It's For</h3>
+                <p>IIUI Journal is exclusively for:</p>
+                <ul>
+                    <li><strong>Students:</strong> All enrolled students with @student.iiu.edu.pk email addresses</li>
+                    <li><strong>Professors & Faculty:</strong> Teaching staff with @iiu.edu.pk email addresses</li>
+                    <li><strong>University Members:</strong> Administrative staff and researchers</li>
+                </ul>
+                <p style="margin-top: 15px;">Every member is verified through their IIUI email to ensure a safe and authentic community.</p>
+            </div>
+            
+            <!-- Meet the Team -->
+            <div class="about-section">
+                <h3>Meet the Team</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-name">Sabtain Ali</div>
+                        <div class="member-role">Founder & Lead Developer</div>
+                        <div class="member-bio">Founder with a vision to create a seamless digital ecosystem where IIUI students and faculty can share knowledge and resources effectively.</div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-name">IIUI Journal Team</div>
+                        <div class="member-role">Community Moderators</div>
+                        <div class="member-bio">A dedicated team of IIUI students committed to maintaining a helpful, respectful, and welcoming environment for the entire university community.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact CTA -->
+            <div class="about-section" style="text-align: center; background: #f9f9f9; padding: 25px; border-radius: 4px;">
+                <h3 style="margin-bottom: 15px;">Have Questions?</h3>
+                <p style="margin-bottom: 20px;">We'd love to hear from you. Reach out anytime!</p>
+                <a href="/contact" class="button" style="display: inline-block; padding: 10px 30px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px;">Contact Us</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <small>© 2026 IIUI Journal </small>
+        <div class="footer-text">A Sabtain Ali production</div>
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            var navLinks = document.getElementById('navLinks');
+            var menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu on window resize if screen becomes larger
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('navLinks').classList.remove('active');
+            }
+        });
+        </script>
+</body>
+</html>

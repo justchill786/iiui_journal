@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IIUI Journal - Post Details</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #3b5998;
+            padding: 15px 0;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: white;
+            font-size: 24px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .header a:hover { text-decoration: underline; }
+        /* Menu toggle - hidden by default on desktop */
+.menu-toggle {
+    display: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    user-select: none;
+}
+        .main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+        .back-link {
+            margin-bottom: 20px;
+            display: inline-block;
+            color: #3b5998;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .post-card {
+            border: 1px solid #eee;
+            padding: 30px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+        .post-title {
+            font-size: 28px;
+            color: #3b5998;
+            margin-bottom: 15px;
+        }
+        .post-meta {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .category {
+            display: inline-block;
+            padding: 3px 8px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+        .status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        .status.open { background: #fff3cd; color: #856404; }
+        .status.resolved { background: #d4edda; color: #155724; }
+        .post-content {
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+        .resolve-btn {
+            background: #3b5998;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .resolve-btn:hover { background: #0052a3; }
+        .replies-section {
+            border: 1px solid #eee;
+            padding: 30px;
+            border-radius: 4px;
+        }
+        .replies-title {
+            font-size: 20px;
+            color: #3b5998;
+            margin-bottom: 20px;
+        }
+        .reply-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .reply-item:last-child { border-bottom: none; }
+        .reply-meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .reply-content {
+            color: #333;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        .reply-form {
+            margin-top: 30px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+            min-height: 100px;
+            margin-bottom: 10px;
+        }
+        .reply-submit {
+            background: #3b5998;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .reply-submit:hover { background: #0052a3; }
+        
+       /* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    font-size: 14px;
+    border-top: 1px solid #e9ebee;
+    margin-top: 30px;
+    position: relative;
+}
+
+.footer small {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-text {
+    color: #000000;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-links a {
+    color: #000000;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+    .header-content {
+        flex-wrap: wrap;
+    }
+    
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        margin: 0;
+        padding: 12px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .menu-toggle {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+    
+    .welcome {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .papers-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .post-card, .replies-section {
+        padding: 20px !important;
+    }
+    
+    .post-title {
+        font-size: 22px !important;
+        word-break: break-word;
+    }
+    
+    .post-content {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    
+    .reply-item {
+        padding: 15px !important;
+    }
+    
+    .reply-content {
+        font-size: 14px;
+        word-break: break-word;
+    }
+    
+    textarea {
+        min-height: 120px;
+    }
+    
+    .back-link {
+        margin-bottom: 15px;
+        display: block;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .modal-content {
+        max-width: 95%;
+        max-height: 80%;
+    }
+    .footer {
+        position: relative;
+        padding-bottom: 50px;
+    }
+    
+    .footer-links {
+        position: absolute;
+        right: 50%;
+        bottom: 10px;
+        top: auto;
+        transform: translateX(50%);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>IIUI Journal</h1>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="/home">Home</a>
+                <a href="/announcements">Announcements</a>
+                <a href="/blogs">Blogs</a>
+                <a href="/past-papers">Past Papers</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main">
+        <a href="/home" class="back-link">← Back to issues</a>
+        
+        <div class="post-card">
+            <h2 class="post-title"><%= post.title %></h2>
+            
+            <div class="post-meta">
+                <span class="category"><%= post.category %></span>
+                <span class="status <%= post.status.toLowerCase() %>"><%= post.status %></span>
+                <span>Posted by <%= post.email %></span>
+            </div>
+            
+            <div class="post-content">
+                <%= post.description %>
+            </div>
+            
+            <% if (userId === post.user_id && post.status === 'Open') { %>
+                <form method="POST" action="/post/<%= post.id %>/resolve">
+                    <button type="submit" class="resolve-btn">Mark as Resolved</button>
+                </form>
+            <% } %>
+        </div>
+        
+        <div class="replies-section">
+            <h3 class="replies-title">Replies</h3>
+            
+            <% if (replies.length > 0) { %>
+                <% replies.forEach(reply => { %>
+                    <div class="reply-item">
+                        <div class="reply-meta">
+                            <%= reply.email %> • 
+                            <%= new Date(reply.created_at).toLocaleString() %>
+                        </div>
+                        <div class="reply-content">
+                            <%= reply.content %>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p style="color: #666;">No replies yet</p>
+            <% } %>
+            
+            <form method="POST" action="/post/<%= post.id %>/reply" class="reply-form">
+                <textarea name="content" placeholder="Write your reply..." required></textarea>
+                <button type="submit" class="reply-submit">Post Reply</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <small>© 2026 IIUI Journal</small>
+        <div class="footer-text">A Sabtain Ali production</div>
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            var navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            var navLinks = document.getElementById('navLinks');
+            var menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu on window resize if screen becomes larger
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('navLinks').classList.remove('active');
+            }
+        });
+        </script>
+</body>
+</html>

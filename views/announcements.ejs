@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IIUI Journal - Announcements</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #3b5998;
+            padding: 15px 0;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: white;
+            font-size: 24px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .header a:hover { text-decoration: underline; }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        /* Menu toggle - hidden by default on desktop */
+.menu-toggle {
+    display: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    user-select: none;
+}
+        .main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+        .page-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-header h2 { 
+            color: #000000; 
+            font-size: 28px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3b5998;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .button:hover { background: #0052a3; }
+        
+        /* Announcements list */
+        .announcements-list {
+            list-style: none;
+        }
+        
+        .announcement-item {
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 25px;
+            margin-bottom: 25px;
+            background: white;
+        }
+        
+        .announcement-header {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .announcement-title {
+            font-size: 22px;
+            color: #3b5998;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .announcement-meta {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .announcement-meta a {
+            color: #0066cc;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 12px;
+        }
+        
+        .announcement-meta a:hover {
+            text-decoration: underline;
+        }
+        
+        .announcement-content {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+        
+        .announcement-image {
+            margin: 20px 0;
+            text-align: center;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 15px;
+        }
+        
+        .announcement-image img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        
+        .image-caption {
+            margin-top: 8px;
+            color: #000000;
+            font-size: 13px;
+        }
+        
+        .delete-form {
+            margin-top: 15px;
+            text-align: right;
+        }
+        
+        .delete-btn {
+            background: none;
+            border: 1px solid #cc0000;
+            color: #cc0000;
+            padding: 5px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .delete-btn:hover {
+            background: #cc0000;
+            color: white;
+        }
+        
+        .no-announcements {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+        }
+        
+        /* Modal for full-size image */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            cursor: pointer;
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid white;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .modal-close:hover {
+            color: #0066cc;
+        }
+        
+       /* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    font-size: 14px;
+    border-top: 1px solid #e9ebee;
+    margin-top: 30px;
+    position: relative;
+}
+
+.footer small {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-text {
+    color: #000000;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-links a {
+    color: #000000;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+    .header-content {
+        flex-wrap: wrap;
+    }
+    
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        margin: 0;
+        padding: 12px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .menu-toggle {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+    
+    .welcome {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .button {
+        width: 40%;
+        text-align: center;
+    }
+    
+    .papers-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .post-card, .replies-section, .form-container {
+        padding: 20px !important;
+    }
+    
+    .post-title {
+        font-size: 24px !important;
+    }
+    
+    .reply-item {
+        padding: 12px !important;
+    }
+    
+    textarea, input, select {
+        font-size: 16px !important; /* Prevents zoom on mobile */
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .modal-content {
+        max-width: 95%;
+        max-height: 80%;
+    }
+    .announcement-item {
+        padding: 20px !important;
+    }
+    
+    .announcement-title {
+        font-size: 20px !important;
+        word-break: break-word;
+    }
+    
+    .announcement-content {
+        font-size: 15px;
+        word-break: break-word;
+    }
+    
+    .announcement-image img {
+        max-height: 250px;
+        object-fit: contain;
+    }
+    
+    .delete-form {
+        text-align: left;
+        margin-top: 15px;
+    }
+    .footer {
+        position: relative;
+        padding-bottom: 50px;
+    }
+    
+    .footer-links {
+        position: absolute;
+        right: 50%;
+        bottom: 10px;
+        top: auto;
+        transform: translateX(50%);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .announcement-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .delete-btn {
+        margin-left: 0;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>IIUI Journal</h1>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="/home">Home</a>
+                <a href="/announcements">Announcements</a>
+                <a href="/blogs">Blogs</a>
+                <a href="/past-papers">Past Papers</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main">
+        <div class="page-header">
+            <h2>Announcements</h2>
+            <a href="/announcements/new" class="button">Post Announcement</a>
+        </div>
+        
+        <% if (announcements.length > 0) { %>
+            <ul class="announcements-list">
+                <% announcements.forEach(announcement => { %>
+                    <li class="announcement-item">
+                        <div class="announcement-header">
+                            <div class="announcement-title"><%= announcement.title %></div>
+                            <div class="announcement-meta">
+                                Posted by <%= announcement.email %> • 
+                                <%= new Date(announcement.created_at).toLocaleString() %>
+                                
+                                <% if (userId === announcement.user_id) { %>
+                                    <form method="POST" action="/announcements/delete/<%= announcement.id %>" style="display: inline;" onsubmit="return confirm('Delete this announcement?');">
+                                        <button type="submit" class="delete-btn">Delete</button>
+                                    </form>
+                                <% } %>
+                            </div>
+                        </div>
+                        
+                        <div class="announcement-content">
+                            <%= announcement.content %>
+                        </div>
+                        
+                        <% if (announcement.image_path) { %>
+                            <div class="announcement-image">
+                                <img src="<%= announcement.image_path %>" 
+                                     alt="<%= announcement.title %>" 
+                                     onclick="openModal('<%= announcement.image_path %>')"
+                                     title="Click to enlarge">
+                                <div class="image-caption">Click image to enlarge</div>
+                            </div>
+                        <% } %>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <div class="no-announcements">
+                <p>No announcements yet.</p>
+                <p style="margin-top: 15px;"><a href="/announcements/new" class="button">Post the first announcement</a></p>
+            </div>
+        <% } %>
+    </div>
+    
+    <!-- Modal for full-size image -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    
+    <div class="footer">
+        <small>© 2026 IIUI Journal</small>
+        <div class="footer-text">A Sabtain Ali production</div>
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+        </div>
+    </div>
+    
+    <script>
+        function openModal(imageSrc) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+    <script>
+        function toggleMenu() {
+            var navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            var navLinks = document.getElementById('navLinks');
+            var menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu on window resize if screen becomes larger
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('navLinks').classList.remove('active');
+            }
+        });
+        </script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IIUI Journal - Post Announcement</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #3b5998;
+            padding: 15px 0;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: white;
+            font-size: 24px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .header a:hover { text-decoration: underline; }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        /* Menu toggle - hidden by default on desktop */
+.menu-toggle {
+    display: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    user-select: none;
+}
+        .main {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+        .back-link {
+            margin-bottom: 20px;
+            display: inline-block;
+            color: #3b5998;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+        h2 { color: #000000; margin-bottom: 30px; }
+        
+        .form-container {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .file-input-wrapper {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            text-align: center;
+            background: #fafafa;
+            border-radius: 4px;
+        }
+        
+        .file-input-wrapper input {
+            margin-top: 10px;
+        }
+        
+        .file-hint {
+            color: #666;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+        
+        .image-preview {
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+        }
+        
+        .image-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        
+        .error {
+            color: #cc0000;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #ffeeee;
+            border-radius: 4px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3b5998;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        button:hover { background: #0052a3; }
+        
+        .optional-note {
+            color: #888;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        
+          /* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    font-size: 14px;
+    border-top: 1px solid #e9ebee;
+    margin-top: 30px;
+    position: relative;
+}
+
+.footer small {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-text {
+    color: #000000;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-links a {
+    color: #000000;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+    .header-content {
+        flex-wrap: wrap;
+    }
+    
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        margin: 0;
+        padding: 12px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .menu-toggle {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+    
+    .welcome {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .papers-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .post-card, .replies-section, .form-container {
+        padding: 20px !important;
+    }
+    
+    .post-title {
+        font-size: 24px !important;
+    }
+    
+    .reply-item {
+        padding: 12px !important;
+    }
+    
+    textarea, input, select {
+        font-size: 16px !important; /* Prevents zoom on mobile */
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .modal-content {
+        max-width: 95%;
+        max-height: 80%;
+    }
+    .footer {
+        position: relative;
+        padding-bottom: 50px;
+    }
+    
+    .footer-links {
+        position: absolute;
+        right: 50%;
+        bottom: 10px;
+        top: auto;
+        transform: translateX(50%);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>IIUI Journal</h1>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="/home">Home</a>
+                <a href="/announcements">Announcements</a>
+                <a href="/blogs">Blogs</a>
+                <a href="/past-papers">Past Papers</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main">
+        <a href="/announcements" class="back-link">← Back to Announcements</a>
+        
+        <h2>Post New Announcement</h2>
+        
+        <div class="form-container">
+            <% if (error) { %>
+                <div class="error"><%= error %></div>
+            <% } %>
+            
+            <form method="POST" action="/announcements/new" enctype="multipart/form-data" id="announcementForm">
+                <div class="form-group">
+                    <label>Title *</label>
+                    <input type="text" name="title" required placeholder="e.g., Important Exam Schedule Update">
+                </div>
+                
+                <div class="form-group">
+                    <label>Announcement *</label>
+                    <textarea name="content" required placeholder="Write your announcement here..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Image (optional)</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" name="announcement_image" accept="image/*" id="imageInput">
+                        <div class="file-hint">Upload an image to accompany your announcement (JPG, PNG, GIF - max 50MB)</div>
+                    </div>
+                    <div class="optional-note">You can post text-only announcements without an image.</div>
+                </div>
+                
+                <!-- Image preview -->
+                <div id="imagePreview" class="image-preview">
+                    <img id="previewImg" src="#" alt="Preview">
+                </div>
+                
+                <button type="submit">Post Announcement</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <small>IIUI Journal © 2026</small>
+        <div class="footer-text">A platform for the IIUI community</div>
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+        </div>
+    </div>
+    
+    <script>
+        // Image preview
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImg').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                document.getElementById('imagePreview').style.display = 'none';
+            }
+        });
+    </script>
+    <script>
+        function toggleMenu() {
+            var navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            var navLinks = document.getElementById('navLinks');
+            var menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu on window resize if screen becomes larger
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('navLinks').classList.remove('active');
+            }
+        });
+        </script>
+</body>
+</html>

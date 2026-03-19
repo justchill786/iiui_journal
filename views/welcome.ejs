@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIUI Journal - Welcome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Blue navigation bar */
+        .nav-bar {
+            background: #3b5998;  /* Classic Facebook blue */
+            padding: 12px 0;
+            width: 100%;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .site-name {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Main content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .welcome-box {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border: 1px solid #dddfe2;
+            border-radius: 4px;
+            padding: 40px 50px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .welcome-title {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: normal;
+            margin-bottom: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 5px;
+            border-bottom: 1px solid #e9ebee;
+            background-color: #3b5998;
+        }
+        
+        .welcome-description {
+            color: #000000;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .feature-list {
+            color: #000000;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 20px 0 30px 30px;
+        }
+        
+        .feature-list li {
+            margin-bottom: 5px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0 10px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 10px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: #3b5998;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2d4373;
+        }
+        
+        .btn-secondary {
+            background: #3b5998;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #2d4373;
+        }
+        
+        /* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    font-size: 14px;
+    border-top: 1px solid #e9ebee;
+    margin-top: 30px;
+    position: relative;
+}
+
+.footer small {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-text {
+    color: #000000;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-links a {
+    color: #000000;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .footer {
+        position: relative;
+        padding-bottom: 50px;
+    }
+    
+    .footer-links {
+        position: absolute;
+        right: 50%;
+        bottom: 10px;
+        top: auto;
+        transform: translateX(50%);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+}
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .welcome-box {
+                padding: 30px 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Blue navigation bar -->
+    <div class="nav-bar">
+        <div class="nav-container">
+            <div class="site-name">IIUI Journal</div>
+            <div class="nav-links">
+                <a href="/login">Login</a>
+                <a href="/signup">Register</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main welcome content -->
+    <div class="main-content">
+        <div class="welcome-box">
+            <h1 class="welcome-title">Welcome to IIUI Journal!</h1>
+            
+            <p class="welcome-description">
+                IIUI Journal is an online platform created for members of International Islamic University Islamabad.
+            </p>
+            
+            <p class="welcome-description">
+                It allows students, professors, and university members to ask questions, discuss academic issues, and share helpful solutions with the IIUI community.
+            </p>
+            
+            <p class="welcome-description" style="margin-bottom: 10px;">You can use IIUI Journal to:</p>
+            
+            <ul class="feature-list">
+                <li>Ask questions about courses and exams</li>
+<li>Discuss registration or hostel issues</li>
+<li>Share helpful academic advice</li>
+<li>Help other students by answering their questions</li>
+<li>Browse and upload past papers by department</li>
+<li>Read official announcements from university members</li>
+<li>Post announcements with images for important updates</li>
+            </ul>
+            
+            <div class="button-group">
+                <a href="/login" class="btn btn-primary">Login</a>
+                <a href="/signup" class="btn btn-secondary">Register</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Simple footer -->
+    <div class="footer">
+        <small>© 2026 IIUI Journal </small>
+        <div class="footer-text">A Sabtain Ali production</div>
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+        </div>
+    </div>
+</body>
+</html>

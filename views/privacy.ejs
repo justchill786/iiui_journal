@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IIUI Journal - Privacy Policy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #3b5998;
+            padding: 15px 0;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: white;
+            font-size: 24px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .header a:hover { text-decoration: underline; }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        /* Menu toggle - hidden by default on desktop */
+.menu-toggle {
+    display: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    user-select: none;
+}
+        .main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+        .page-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .page-header h2 { 
+            color: #333; 
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .last-updated {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .privacy-content {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h3 {
+            color: #3b5998;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .section p {
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .section ul {
+            margin: 10px 0 20px 30px;
+            color: #444;
+            line-height: 1.6;
+        }
+        
+        .section li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background: #f9f9f9;
+            border-left: 3px solid #3b5998;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+        
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    font-size: 14px;
+    border-top: 1px solid #e9ebee;
+    margin-top: 30px;
+    position: relative;
+}
+
+.footer small {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-text {
+    color: #000000;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-links a {
+    color: #000000;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+    .header-content {
+        flex-wrap: wrap;
+    }
+    
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        margin: 0;
+        padding: 12px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .menu-toggle {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+    
+    .welcome {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .papers-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .post-card, .replies-section, .form-container {
+        padding: 20px !important;
+    }
+    
+    .post-title {
+        font-size: 24px !important;
+    }
+    
+    .reply-item {
+        padding: 12px !important;
+    }
+    
+    textarea, input, select {
+        font-size: 16px !important; /* Prevents zoom on mobile */
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .modal-content {
+        max-width: 95%;
+        max-height: 80%;
+    }
+    .footer {
+        position: relative;
+        padding-bottom: 50px;
+    }
+    
+    .footer-links {
+        position: absolute;
+        right: 50%;
+        bottom: 10px;
+        top: auto;
+        transform: translateX(50%);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>IIUI Journal</h1>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="/home">Home</a>
+                <a href="/announcements">Announcements</a>
+                <a href="/blogs">Blogs</a>
+                <a href="/past-papers">Past Papers</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main">
+        <div class="page-header">
+            <h2>Privacy Policy</h2>
+            <div class="last-updated">Last Updated: March 14, 2026</div>
+        </div>
+        
+        <div class="privacy-content">
+            <div class="section">
+                <h3>Our Commitment to Privacy</h3>
+                <p>At IIUI Journal, we are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information when you use our platform.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>IIUI Journal is exclusively for members of International Islamic University Islamabad with valid @iiu.edu.pk or @student.iiu.edu.pk email addresses.</strong></p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>Information We Collect</h3>
+                <p>We collect only the information necessary to provide our services:</p>
+                <ul>
+                    <li><strong>Account Information:</strong> Your IIUI email address and encrypted password</li>
+                    <li><strong>Content You Post:</strong> Issues, replies, blogs, and past papers you share</li>
+                    <li><strong>Contact Information:</strong> If you contact us, we keep your message to respond</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h3>How We Use Your Information</h3>
+                <ul>
+                    <li>To verify your IIUI affiliation</li>
+                    <li>To display your content on the platform</li>
+                    <li>To communicate with you about your posts or inquiries</li>
+                    <li>To maintain and improve the platform</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h3>Information Sharing</h3>
+                <p>We do not sell, trade, or rent your personal information to others. Your information is only visible to other verified IIUI members through your posts and profile.</p>
+            </div>
+            
+            <div class="section">
+                <h3>Data Security</h3>
+                <p>We implement appropriate security measures to protect your information:</p>
+                <ul>
+                    <li>Passwords are hashed and encrypted</li>
+                    <li>Email verification is required for all accounts</li>
+                    <li>Only verified IIUI members can access the platform</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h3>Your Content</h3>
+                <p>Any content you post (issues, replies, blogs, past papers) remains your responsibility. By posting, you grant IIUI Journal permission to display it on our platform for other verified members.</p>
+            </div>
+            
+            <div class="section">
+                <h3>Contact Us</h3>
+                <p>If you have questions about this privacy policy, please <a href="/contact" style="color: #3b5998;">contact us</a>.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <small>© 2026 IIUI Journal</small>
+        <div class="footer-text">A Sabtain Ali production</div>
+
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            var navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            var navLinks = document.getElementById('navLinks');
+            var menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu on window resize if screen becomes larger
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('navLinks').classList.remove('active');
+            }
+        });
+        </script>
+</body>
+</html>

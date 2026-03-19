@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IIUI Journal - Home</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #3b5998;
+            padding: 15px 0;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: white;
+            font-size: 24px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .header a:hover { text-decoration: underline; }
+        .main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+        .welcome {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .welcome h2 { color: #333; }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3b5998;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .button:hover { background: #0052a3; }
+        .posts-list { list-style: none; }
+        .post-item {
+            padding: 20px;
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .post-title {
+            font-size: 20px;
+            color: #3b5998;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .post-meta {
+            margin: 10px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .category {
+            display: inline-block;
+            padding: 3px 8px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .status.open { background: #fff3cd; color: #856404; }
+        .status.resolved { background: #d4edda; color: #155724; }
+        .post-description {
+            color: #333;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 0;
+}
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Menu toggle - hidden by default on desktop */
+.menu-toggle {
+    display: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    user-select: none;
+}
+        
+        /* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    font-size: 14px;
+    border-top: 1px solid #e9ebee;
+    margin-top: 30px;
+    position: relative;
+}
+
+.footer small {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-text {
+    color: #000000;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-links a {
+    color: #000000;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+    .header-content {
+        flex-wrap: wrap;
+    }
+    
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        margin: 0;
+        padding: 12px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .menu-toggle {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+    
+    .welcome {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .button {
+        width: 30%;
+        text-align: center;
+    }
+    
+    .papers-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .post-card, .replies-section, .form-container {
+        padding: 20px !important;
+    }
+    
+    .post-title {
+        font-size: 24px !important;
+    }
+    
+    .reply-item {
+        padding: 12px !important;
+    }
+    
+    textarea, input, select {
+        font-size: 16px !important; /* Prevents zoom on mobile */
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .modal-content {
+        max-width: 95%;
+        max-height: 80%;
+    }
+    .footer {
+        position: relative;
+        padding-bottom: 50px;
+    }
+    
+    .footer-links {
+        position: absolute;
+        right: 50%;
+        bottom: 10px;
+        top: auto;
+        transform: translateX(50%);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>IIUI Journal</h1>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="/home">Home</a>
+                <a href="/announcements">Announcements</a>
+                <a href="/blogs">Blogs</a>
+                <a href="/past-papers">Past Papers</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main">
+        <div class="welcome">
+            <h2>Welcome, <%= userEmail %></h2>
+            <a href="/post/new" class="button">Post Issue</a>
+        </div>
+        
+        <ul class="posts-list">
+            <% posts.forEach(post => { %>
+                <li class="post-item">
+                    <a href="/post/<%= post.id %>" class="post-title"><%= post.title %></a>
+                    <div class="post-meta">
+                        <span class="category"><%= post.category %></span>
+                        <span class="status <%= post.status.toLowerCase() %>"><%= post.status %></span>
+                        <span>Posted by <%= post.email %></span>
+                        <span class="post-date"><%= new Date(post.created_at).toLocaleDateString() %></span>
+                    </div>
+                    <div class="post-description">
+                        <%= post.description.substring(0, 150) %><% if (post.description.length > 150) { %>...<% } %>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <small>© 2026 IIUI Journal</small>
+        <div class="footer-text">A Sabtain Ali production</div>
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            var navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            var navLinks = document.getElementById('navLinks');
+            var menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu on window resize if screen becomes larger
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('navLinks').classList.remove('active');
+            }
+        });
+        </script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IIUI Journal - Past Papers</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: #3b5998;
+            padding: 15px 0;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: white;
+            font-size: 24px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .header a:hover { text-decoration: underline; }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        /* Menu toggle - hidden by default on desktop */
+.menu-toggle {
+    display: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    user-select: none;
+}
+        .main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+        .page-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-header h2 { color: #333; }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3b5998;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .button:hover { background: #0052a3; }
+        
+        /* Papers grid */
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            list-style: none;
+        }
+        .paper-card {
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 20px;
+            background: white;
+            transition: box-shadow 0.2s;
+        }
+        .paper-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .paper-title {
+            font-size: 18px;
+            color: #3b5998;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .paper-department {
+            color: #000000;
+            font-size: 14px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .paper-description {
+            color: #000000;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        /* Image container for full-size display */
+        .paper-image-container {
+            margin: 15px 0;
+            text-align: center;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        .paper-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        
+        /* Download button */
+        .download-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #3b5998;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .download-btn:hover {
+            background: #0052a3;
+        }
+        
+        .paper-meta {
+            margin-top: 15px;
+            color: #888;
+            font-size: 12px;
+            text-align: right;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 10px;
+        }
+        
+        .no-papers {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+        }
+        
+        /* Modal for full-size image view */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            cursor: pointer;
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid white;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .modal-close:hover {
+            color: #3b5998;
+        }
+        
+        /* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #000000;
+    font-size: 14px;
+    border-top: 1px solid #e9ebee;
+    margin-top: 30px;
+    position: relative;
+}
+
+.footer small {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer-text {
+    color: #000000;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-links a {
+    color: #000000;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+    .header-content {
+        flex-wrap: wrap;
+    }
+    
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        margin: 0;
+        padding: 12px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .menu-toggle {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+    
+    .welcome {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .button {
+        width: 30%;
+        text-align: center;
+    }
+    
+    .papers-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .post-card, .replies-section, .form-container {
+        padding: 20px !important;
+    }
+    
+    .paper-image {
+        max-height: 300px;
+        object-fit: contain;
+    }
+    
+    .download-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .post-title {
+        font-size: 24px !important;
+    }
+    
+    .reply-item {
+        padding: 12px !important;
+    }
+    
+    textarea, input, select {
+        font-size: 16px !important; /* Prevents zoom on mobile */
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .modal-content {
+        max-width: 95%;
+        max-height: 80%;
+    }
+    .footer {
+        position: relative;
+        padding-bottom: 50px;
+    }
+    
+    .footer-links {
+        position: absolute;
+        right: 50%;
+        bottom: 10px;
+        top: auto;
+        transform: translateX(50%);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-links a {
+        margin: 0 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .paper-title {
+        font-size: 16px;
+    }
+    
+    .paper-department {
+        font-size: 13px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>IIUI Journal</h1>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="/home">Home</a>
+                <a href="/announcements">Announcements</a>
+                <a href="/blogs">Blogs</a>
+                <a href="/past-papers">Past Papers</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main">
+        <div class="page-header">
+            <h2>Past Papers</h2>
+            <a href="/past-papers/upload" class="button">Upload Paper</a>
+        </div>
+        
+        <% if (papers.length > 0) { %>
+            <ul class="papers-grid">
+                <% papers.forEach(paper => { %>
+                    <li class="paper-card">
+                        <div class="paper-title"><%= paper.title %></div>
+                        <div class="paper-department">Department: <%= paper.department %></div>
+                        
+                        <% if (paper.description) { %>
+                            <div class="paper-description"><%= paper.description %></div>
+                        <% } %>
+                        
+                        <!-- Full-size image with click to enlarge -->
+                        <div class="paper-image-container">
+                            <img src="<%= paper.image_path %>" 
+                                 alt="<%= paper.title %>" 
+                                 class="paper-image"
+                                 onclick="openModal('<%= paper.image_path %>')"
+                                 title="Click to enlarge">
+                        </div>
+                        
+                        <!-- Download button -->
+                        <a href="<%= paper.image_path %>" 
+                           class="download-btn" 
+                           download="<%= paper.title %>.jpg"
+                           target="_blank">Download Image</a>
+                        
+                        <div class="paper-meta">
+                            Uploaded by <%= paper.email %> • 
+                            <%= new Date(paper.created_at).toLocaleDateString() %>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <div class="no-papers">
+                <p>No past papers uploaded yet.</p>
+                <p style="margin-top: 15px;"><a href="/past-papers/upload" class="button">Upload the first paper</a></p>
+            </div>
+        <% } %>
+    </div>
+    
+    <!-- Modal for full-size image view -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    
+    <div class="footer">
+        <small>© 2026 IIUI Journal</small>
+        <div class="footer-text">A Sabtain Ali production</div>
+        <div class="footer-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+        </div>
+    </div>
+    
+    <script>
+        // JavaScript for image modal
+        function openModal(imageSrc) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+        
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+    <script>
+        function toggleMenu() {
+            var navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            var navLinks = document.getElementById('navLinks');
+            var menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navLinks.contains(event.target) && !menuToggle.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Close menu on window resize if screen becomes larger
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('navLinks').classList.remove('active');
+            }
+        });
+        </script>
+</body>
+</html>
