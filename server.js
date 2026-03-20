@@ -67,7 +67,8 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME || 'iiui_journal',
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    timezone: '+05:00'
 });
 
 // Email transporter
