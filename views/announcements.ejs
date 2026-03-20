@@ -407,6 +407,26 @@
             <a href="/announcements/new" class="button">Post Announcement</a>
         </div>
         
+        <% 
+        // Pakistan Time Helper Function
+        function pakistanTime(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            // Add 5 hours for Pakistan (UTC+5)
+            d.setHours(d.getHours() + 5);
+            
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            return d.toLocaleString('en-PK', options);
+        }
+        %>
+        
         <% if (announcements.length > 0) { %>
             <ul class="announcements-list">
                 <% announcements.forEach(announcement => { %>
@@ -415,7 +435,7 @@
                             <div class="announcement-title"><%= announcement.title %></div>
                             <div class="announcement-meta">
                                 Posted by <%= announcement.email %> • 
-                                <%= new Date(announcement.created_at).toLocaleString() %>
+                                <%= pakistanTime(announcement.created_at) %>
                                 
                                 <% if (userId === announcement.user_id) { %>
                                     <form method="POST" action="/announcements/delete/<%= announcement.id %>" style="display: inline;" onsubmit="return confirm('Delete this announcement?');">

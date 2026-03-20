@@ -253,13 +253,33 @@
             <a href="/blog/new" class="button">Write Blog</a>
         </div>
         
+        <% 
+        // Pakistan Time Helper Function for Blogs
+        function pakistanTime(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            // Add 5 hours for Pakistan (UTC+5)
+            d.setHours(d.getHours() + 5);
+            
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            return d.toLocaleString('en-PK', options);
+        }
+        %>
+        
         <ul class="blogs-list">
             <% blogs.forEach(blog => { %>
                 <li class="blog-item">
                     <h3 class="blog-title"><%= blog.title %></h3>
                     <div class="blog-meta">
                         By <%= blog.email %> • 
-                        <%= new Date(blog.created_at).toLocaleDateString() %>
+                        <%= pakistanTime(blog.created_at) %>
                     </div>
                     <div class="blog-content">
                         <%= blog.content %>

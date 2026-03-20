@@ -97,6 +97,12 @@
             line-height: 1.5;
             margin-top: 10px;
         }
+        .post-date {
+            display: inline-block;
+            margin-left: 10px;
+            color: #888;
+            font-size: 12px;
+        }
         .nav-links {
             display: flex;
             gap: 15px;
@@ -284,6 +290,26 @@
             <a href="/post/new" class="button">Post Issue</a>
         </div>
         
+        <% 
+        // Pakistan Time Helper Function for Posts
+        function pakistanTime(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            // Add 5 hours for Pakistan (UTC+5)
+            d.setHours(d.getHours() + 5);
+            
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            return d.toLocaleString('en-PK', options);
+        }
+        %>
+        
         <ul class="posts-list">
             <% posts.forEach(post => { %>
                 <li class="post-item">
@@ -292,12 +318,12 @@
                         <span class="category"><%= post.category %></span>
                         <span class="status <%= post.status.toLowerCase() %>"><%= post.status %></span>
                         <span>Posted by <%= post.email %></span>
-                        <span class="post-date"><%= new Date(post.created_at).toLocaleDateString() %></span>
+                        <span class="post-date"><%= pakistanTime(post.created_at) %></span>
                     </div>
                     <div class="post-description">
                         <%= post.description.substring(0, 150) %><% if (post.description.length > 150) { %>...<% } %>
                     </div>
-                    <!-- YEH ADD KARO - small hint -->
+                    <!-- User help hint -->
     <div style="margin-top: 10px; font-size: 13px; color: #888; text-align: right;">
         <span style="background: #f0f0f0; padding: 3px 8px; border-radius: 3px;">
              Click on title to view & reply.

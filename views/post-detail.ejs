@@ -326,6 +326,26 @@
     <div class="main">
         <a href="/home" class="back-link">← Back to issues</a>
         
+        <% 
+        // Pakistan Time Helper Function for Replies
+        function pakistanTime(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            // Add 5 hours for Pakistan (UTC+5)
+            d.setHours(d.getHours() + 5);
+            
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            return d.toLocaleString('en-PK', options);
+        }
+        %>
+        
         <div class="post-card">
             <h2 class="post-title"><%= post.title %></h2>
             
@@ -333,6 +353,9 @@
                 <span class="category"><%= post.category %></span>
                 <span class="status <%= post.status.toLowerCase() %>"><%= post.status %></span>
                 <span>Posted by <%= post.email %></span>
+                <span style="margin-left: 10px; color: #888; font-size: 12px;">
+                    <%= pakistanTime(post.created_at) %>
+                </span>
             </div>
             
             <div class="post-content">
@@ -354,7 +377,7 @@
                     <div class="reply-item">
                         <div class="reply-meta">
                             <%= reply.email %> • 
-                            <%= new Date(reply.created_at).toLocaleString() %>
+                            <%= pakistanTime(reply.created_at) %>
                         </div>
                         <div class="reply-content">
                             <%= reply.content %>

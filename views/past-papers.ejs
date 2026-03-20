@@ -378,6 +378,26 @@
             <a href="/past-papers/upload" class="button">Upload Paper</a>
         </div>
         
+        <% 
+        // Pakistan Time Helper Function for Past Papers
+        function pakistanTime(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            // Add 5 hours for Pakistan (UTC+5)
+            d.setHours(d.getHours() + 5);
+            
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            return d.toLocaleString('en-PK', options);
+        }
+        %>
+        
         <% if (papers.length > 0) { %>
             <ul class="papers-grid">
                 <% papers.forEach(paper => { %>
@@ -406,7 +426,7 @@
                         
                         <div class="paper-meta">
                             Uploaded by <%= paper.email %> • 
-                            <%= new Date(paper.created_at).toLocaleDateString() %>
+                            <%= pakistanTime(paper.created_at) %>
                         </div>
                     </li>
                 <% }) %>

@@ -67,9 +67,27 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME || 'iiui_journal',
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0,
-    timezone: '+05:00'
+    queueLimit: 0
 });
+
+// Connection ke baad timezone set karo
+(async () => {
+    try {
+        // Pehle check current time
+        const [now] = await pool.execute("SELECT NOW() as current_time");
+        console.log('🕐 DB Current Time:', now[0].current_time);
+        
+        // Set Pakistan timezone
+        await pool.execute("SET time_zone = '+05:00'");
+        console.log('✅ Timezone set to Pakistan (UTC+5)');
+        
+        // Verify
+        const [pak] = await pool.execute("SELECT NOW() as pakistan_time");
+        console.log('🇵🇰 Pakistan Time:', pak[0].pakistan_time);
+    } catch (err) {
+        console.error('Timezone error:', err);
+    }
+})();
 
 // Email transporter
 const transporter = nodemailer.createTransport({
