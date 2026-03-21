@@ -36,7 +36,7 @@ const sessionStore = new MySQLStore({
 app.use(session({
     key: 'iiui_session_cookie',
     secret: process.env.SESSION_SECRET || 'iiuiJournalSecretKey2026',
-    store: sessionStore, // ✅ YEH ADD KARO (ab database mein save hoga)
+    store: sessionStore,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -44,18 +44,6 @@ app.use(session({
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
         sameSite: 'lax'
-    }
-}));
-
-// Session configuration
-app.use(session({
-    secret: process.env.SESSION_SECRET || 'iiuiJournalSecretKey2026',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
@@ -73,15 +61,12 @@ const pool = mysql.createPool({
 // Connection ke baad timezone set karo
 (async () => {
     try {
-        // Pehle check current time
         const [now] = await pool.execute("SELECT NOW() as current_time");
         console.log('🕐 DB Current Time:', now[0].current_time);
         
-        // Set Pakistan timezone
         await pool.execute("SET time_zone = '+05:00'");
         console.log('✅ Timezone set to Pakistan (UTC+5)');
         
-        // Verify
         const [pak] = await pool.execute("SELECT NOW() as pakistan_time");
         console.log('🇵🇰 Pakistan Time:', pak[0].pakistan_time);
     } catch (err) {
@@ -551,7 +536,7 @@ app.get('/about', (req, res) => {
     });
 });
 
-// Contact
+// Contact Us page
 app.get('/contact', (req, res) => {
     res.render('contact', { 
         userEmail: req.session.userEmail || null,
@@ -560,6 +545,7 @@ app.get('/contact', (req, res) => {
     });
 });
 
+// 🔥 UPDATED: Handle contact form submission with email notifications
 app.post('/contact', async (req, res) => {
     const { name, email, subject, message } = req.body;
     
@@ -572,21 +558,89 @@ app.post('/contact', async (req, res) => {
     }
     
     try {
+        // 1. Save to database
         await pool.execute(
             'INSERT INTO contact_messages (name, email, subject, message) VALUES (?, ?, ?, ?)',
             [name, email, subject, message]
         );
         
+        // 2. Send confirmation email to user
+        const userMailOptions = {
+            from: `"IIUI Journal" <${process.env.EMAIL_USER}>`,
+            to: email,
+            subject: `Thank you for contacting IIUI Journal`,
+            text: `Dear ${name},\n\nThank you for reaching out to IIUI Journal. We have received your message and will get back to you within 24-48 hours.\n\nHere's a copy of your message:\n\nSubject: ${subject}\nMessage: ${message}\n\nBest regards,\nIIUI Journal Team\n\nwww.iiuijournal.com`,
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+                    <div style="background-color: #0066cc; color: white; padding: 15px; text-align: center; border-radius: 5px;">
+                        <h2 style="margin: 0;">IIUI Journal</h2>
+                    </div>
+                    <div style="padding: 20px;">
+                        <p>Dear <strong>${name}</strong>,</p>
+                        <p>Thank you for reaching out to IIUI Journal. We have received your message and will get back to you within <strong>24-48 hours</strong>.</p>
+                        <div style="background-color: #f5f5f5; padding: 15px; margin: 20px 0; border-left: 4px solid #0066cc;">
+                            <p><strong>Your Message:</strong></p>
+                            <p><strong>Subject:</strong> ${subject}</p>
+                            <p><strong>Message:</strong><br>${message.replace(/\n/g, '<br>')}</p>
+                        </div>
+                        <p>Best regards,<br><strong>IIUI Journal Team</strong></p>
+                        <hr style="margin: 20px 0;">
+                        <p style="font-size: 12px; color: #666;">IIUI Journal - A platform for the IIUI community<br>www.iiuijournal.com</p>
+                    </div>
+                </div>
+            `
+        };
+        
+        // 3. Send notification email to admin (you)
+        const adminMailOptions = {
+            from: `"IIUI Journal Contact" <${process.env.EMAIL_USER}>`,
+            to: process.env.EMAIL_USER,
+            subject: `New Contact Form Message - ${subject}`,
+            text: `You have received a new message from the contact form.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n CONTACT DETAILS:\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n MESSAGE:\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n${message}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n Received: ${new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' })}\n Reply to: ${email}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+                    <div style="background-color: #0066cc; color: white; padding: 15px; text-align: center; border-radius: 5px;">
+                        <h2 style="margin: 0;">New Contact Form Message</h2>
+                    </div>
+                    <div style="padding: 20px;">
+                        <div style="background-color: #f0f7ff; padding: 15px; margin: 10px 0;">
+                            <h3 style="color: #0066cc; margin-top: 0;">Contact Details:</h3>
+                            <p><strong>Name:</strong> ${name}<br>
+                            <strong>Email:</strong> <a href="mailto:${email}">${email}</a><br>
+                            <strong>Subject:</strong> ${subject}<br>
+                            <strong>Date:</strong> ${new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' })}</p>
+                        </div>
+                        <div style="background-color: #f9f9f9; padding: 15px; margin: 10px 0;">
+                            <h3 style="color: #0066cc; margin-top: 0;">Message:</h3>
+                            <p style="white-space: pre-wrap;">${message.replace(/\n/g, '<br>')}</p>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <a href="mailto:${email}" style="display: inline-block; background-color: #0066cc; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Reply to ${name}</a>
+                        </div>
+                        <hr style="margin: 20px 0;">
+                        <p style="font-size: 12px; color: #666;">You can view all messages in the database at any time.</p>
+                    </div>
+                </div>
+            `
+        };
+        
+        // Send both emails
+        await transporter.sendMail(userMailOptions);
+        await transporter.sendMail(adminMailOptions);
+        
+        console.log(`✅ Contact email sent from ${email} to admin`);
+        
         res.render('contact', { 
             userEmail: req.session.userEmail || null,
             error: null,
-            success: 'Your message has been sent. We will get back to you soon.' 
+            success: '✓ Your message has been sent successfully! We will get back to you within 24-48 hours. A confirmation email has been sent to your inbox.' 
         });
+        
     } catch (error) {
         console.error('Contact error:', error);
         res.render('contact', { 
             userEmail: req.session.userEmail || null,
-            error: 'Failed to send message. Please try again.',
+            error: 'Failed to send message. Please try again later or email us directly at sabtainali2024@gmail.com',
             success: null 
         });
     }
