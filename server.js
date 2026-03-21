@@ -617,8 +617,6 @@ app.post('/contact', async (req, res) => {
                         <div style="margin-top: 20px;">
                             <a href="mailto:${email}" style="display: inline-block; background-color: #0066cc; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Reply to ${name}</a>
                         </div>
-                        <hr style="margin: 20px 0;">
-                        <p style="font-size: 12px; color: #666;">You can view all messages in the database at any time.</p>
                     </div>
                 </div>
             `
