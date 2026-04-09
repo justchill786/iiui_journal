@@ -69,6 +69,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         .page-header h2 { color: #333; }
         .button {
@@ -80,6 +82,61 @@
             border-radius: 4px;
         }
         .button:hover { background: #0052a3; }
+        
+        /* Search Bar Styles */
+        .search-section {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .search-form {
+            flex: 1;
+            max-width: 400px;
+            display: flex;
+            gap: 10px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #3b5998;
+        }
+        .search-btn {
+            padding: 10px 20px;
+            background: #3b5998;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .search-btn:hover { background: #2d4373; }
+        .clear-search {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .clear-search:hover { background: #e0e0e0; }
+        .search-info {
+            background: #e8f0fe;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            color: #3b5998;
+            font-size: 14px;
+            border-left: 3px solid #3b5998;
+        }
         
         /* Papers grid */
         .papers-grid {
@@ -363,6 +420,15 @@
     .paper-department {
         font-size: 13px;
     }
+    
+    .search-section {
+        flex-direction: column;
+    }
+    
+    .search-form {
+        max-width: 100%;
+        width: 100%;
+    }
 }
     </style>
 </head>
@@ -386,6 +452,27 @@
             <h2>Past Papers</h2>
             <a href="/past-papers/upload" class="button">Upload Paper</a>
         </div>
+        
+        <!-- Search Bar -->
+        <div class="search-section">
+            <form method="GET" action="/past-papers/search" class="search-form">
+                <input type="text" name="q" class="search-input" 
+                       placeholder="Search by title, department, or description..." 
+                       value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>">
+                <button type="submit" class="search-btn"> Search</button>
+            </form>
+            <% if (typeof searchQuery !== 'undefined' && searchQuery) { %>
+                <a href="/past-papers" class="clear-search">✖ Clear</a>
+            <% } %>
+        </div>
+        
+        <!-- Search Results Info -->
+        <% if (typeof searchQuery !== 'undefined' && searchQuery) { %>
+            <div class="search-info">
+                 Showing results for: "<strong><%= searchQuery %></strong>" 
+                | Found <strong><%= papers.length %></strong> paper(s)
+            </div>
+        <% } %>
         
         <% 
         // Pakistan Time Helper Function for Past Papers
@@ -442,8 +529,13 @@
             </ul>
         <% } else { %>
             <div class="no-papers">
-                <p>No past papers uploaded yet.</p>
-                <p style="margin-top: 15px;"><a href="/past-papers/upload" class="button">Upload the first paper</a></p>
+                <% if (typeof searchQuery !== 'undefined' && searchQuery) { %>
+                    <p>No past papers found matching "<strong><%= searchQuery %></strong>"</p>
+                    <p style="margin-top: 15px;">Try searching with different keywords or <a href="/past-papers" style="color: #3b5998;">view all papers</a></p>
+                <% } else { %>
+                    <p>No past papers uploaded yet.</p>
+                    <p style="margin-top: 15px;"><a href="/past-papers/upload" class="button">Upload the first paper</a></p>
+                <% } %>
             </div>
         <% } %>
     </div>
@@ -506,6 +598,6 @@
                 document.getElementById('navLinks').classList.remove('active');
             }
         });
-        </script>
+    </script>
 </body>
 </html>

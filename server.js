@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-// ✅ Database session store banao
+// Database session store
 const sessionStore = new MySQLStore({
     host: process.env.DB_HOST,
     port: 3306,
@@ -28,11 +28,11 @@ const sessionStore = new MySQLStore({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     clearExpired: true,
-    checkExpirationInterval: 900000, // 15 minutes
-    expiration: 86400000 // 24 hours
+    checkExpirationInterval: 900000,
+    expiration: 86400000
 });
 
-// ✅ Updated session configuration
+// Session configuration
 app.use(session({
     key: 'iiui_session_cookie',
     secret: process.env.SESSION_SECRET || 'iiuiJournalSecretKey2026',
@@ -42,7 +42,7 @@ app.use(session({
     cookie: {
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        maxAge: 24 * 60 * 60 * 1000,
         sameSite: 'lax'
     }
 }));
@@ -481,7 +481,9 @@ app.post('/blog/new', requireAuth, async (req, res) => {
     }
 });
 
-// Past Papers
+// ============ PAST PAPERS ROUTES ============
+
+// Past Papers - View all
 app.get('/past-papers', requireAuth, async (req, res) => {
     try {
         const [papers] = await pool.execute(`
@@ -493,7 +495,8 @@ app.get('/past-papers', requireAuth, async (req, res) => {
         
         res.render('past-papers', { 
             papers,
-            userEmail: req.session.userEmail 
+            userEmail: req.session.userEmail,
+            searchQuery: null
         });
     } catch (error) {
         console.error('Past papers error:', error);
@@ -501,10 +504,42 @@ app.get('/past-papers', requireAuth, async (req, res) => {
     }
 });
 
+//  NEW: Past Papers Search Route
+app.get('/past-papers/search', requireAuth, async (req, res) => {
+    const searchQuery = req.query.q;
+    
+    if (!searchQuery || searchQuery.trim() === '') {
+        return res.redirect('/past-papers');
+    }
+    
+    try {
+        const [papers] = await pool.execute(`
+            SELECT p.*, u.email 
+            FROM past_papers p 
+            JOIN users u ON p.user_id = u.id 
+            WHERE p.title LIKE ? 
+               OR p.department LIKE ? 
+               OR p.description LIKE ?
+            ORDER BY p.created_at DESC
+        `, [`%${searchQuery}%`, `%${searchQuery}%`, `%${searchQuery}%`]);
+        
+        res.render('past-papers', { 
+            papers,
+            userEmail: req.session.userEmail,
+            searchQuery: searchQuery
+        });
+    } catch (error) {
+        console.error('Search error:', error);
+        res.redirect('/past-papers');
+    }
+});
+
+// Past Papers - Upload form
 app.get('/past-papers/upload', requireAuth, (req, res) => {
     res.render('upload-paper', { error: null });
 });
 
+// Past Papers - Upload submit
 app.post('/past-papers/upload', requireAuth, upload.single('paper_image'), async (req, res) => {
     const { title, description, department } = req.body;
     
@@ -545,7 +580,7 @@ app.get('/contact', (req, res) => {
     });
 });
 
-// 🔥 UPDATED: Handle contact form submission with email notifications
+// Handle contact form submission with email notifications
 app.post('/contact', async (req, res) => {
     const { name, email, subject, message } = req.body;
     
@@ -626,7 +661,7 @@ app.post('/contact', async (req, res) => {
         await transporter.sendMail(userMailOptions);
         await transporter.sendMail(adminMailOptions);
         
-        console.log(`✅ Contact email sent from ${email} to admin`);
+        console.log(` Contact email sent from ${email} to admin`);
         
         res.render('contact', { 
             userEmail: req.session.userEmail || null,
@@ -665,6 +700,6 @@ app.get('/logout', (req, res) => {
 const PORT = process.env.PORT || 5050;
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`✅ Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
-    console.log(`🌐 Visit: http://localhost:${PORT}`);
+    console.log(` Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+    console.log(` Visit: http://localhost:${PORT}`);
 });
