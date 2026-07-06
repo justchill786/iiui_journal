@@ -106,7 +106,7 @@ This repository is preserved as a portfolio project demonstrating the applicatio
 
 ---
 
-# 🛠 Tech Stack
+# Tech Stack
 
 ## Frontend
 
