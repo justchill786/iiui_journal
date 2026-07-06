@@ -166,12 +166,12 @@ iiui_journal/
 
 ---
 
-# 🚀 Getting Started
+# Getting Started
 
 ## Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/iiui_journal.git
+git clone https://github.com/sabtain05/iiui_journal.git
 
 cd iiui_journal
 ```
