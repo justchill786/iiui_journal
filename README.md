@@ -137,8 +137,6 @@ This repository is preserved as a portfolio project demonstrating the applicatio
 - Multer (File Uploads)
 - dotenv
 
-*(Update these if your implementation differs.)*
-
 ---
 
 # 📂 Project Structure
