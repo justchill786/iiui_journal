@@ -214,38 +214,6 @@ npm run dev
 
 ---
 
-# 📸 Screenshots
-
-## Home Page
-
-> Add Screenshot
-
----
-
-## Q&A Section
-
-> Add Screenshot
-
----
-
-## Announcements
-
-> Add Screenshot
-
----
-
-## Blogs
-
-> Add Screenshot
-
----
-
-## Past Papers
-
-> Add Screenshot
-
----
-
 # 📈 Future Improvements
 
 - Mobile Application
