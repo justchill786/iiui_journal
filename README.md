@@ -1,6 +1,6 @@
 # IIUI Journal
 
-> 📚 A student-built community platform for the students of the International Islamic University Islamabad (IIUI). IIUI Journal provided a centralized space for questions & answers, important university announcements, blogs, and a collaborative past paper repository.
+>  A student-built community platform for the students of the International Islamic University Islamabad (IIUI). IIUI Journal provided a centralized space for questions & answers, important university announcements, blogs, and a collaborative past paper repository.
 
 ![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?logo=node.js)
 ![Express](https://img.shields.io/badge/Express.js-Framework-black?logo=express)
@@ -10,7 +10,7 @@
 
 ---
 
-# 📖 Overview
+# Overview
 
 IIUI Journal was an independent student platform created to improve communication and knowledge sharing within the International Islamic University Islamabad (IIUI) community.
 
