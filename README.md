@@ -229,7 +229,7 @@ npm run dev
 
 ---
 
-# 💡 Lessons Learned
+# Lessons Learned
 
 Building IIUI Journal provided valuable experience in:
 
