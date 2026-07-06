@@ -98,7 +98,7 @@ This repository is preserved as a portfolio project demonstrating the applicatio
 
 ---
 
-## 📱 Responsive Design
+## Responsive Design
 
 - Mobile Friendly
 - Tablet Support
