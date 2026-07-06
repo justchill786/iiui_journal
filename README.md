@@ -41,7 +41,7 @@ The rapid adoption highlighted a significant need for a platform that connected 
 
 ---
 
-# ⚠️ Project Status
+# Project Status
 
 After approximately **two days** of operation, the platform was taken offline following action by the university administration.
 
