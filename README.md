@@ -214,7 +214,7 @@ npm run dev
 
 ---
 
-# 📈 Future Improvements
+# Future Improvements
 
 - Mobile Application
 - Course-specific Communities
