@@ -139,7 +139,7 @@ This repository is preserved as a portfolio project demonstrating the applicatio
 
 ---
 
-# 📂 Project Structure
+# Project Structure
 
 ```
 iiui_journal/
