@@ -25,17 +25,17 @@ Despite being available for only **two days**, the platform experienced remarkab
 
 ---
 
-# 🚀 Project Impact
+# Project Impact
 
 One of the most exciting parts of this project wasn't just the technology—it was the adoption.
 
 Within just **48 hours** of launch, IIUI Journal achieved:
 
-- 🚀 **1,500+ student registrations**
-- 👥 **1,300+ active users**
-- 📚 Hundreds of shared academic resources
-- 💬 An active Q&A community
-- 📢 Student-driven announcement sharing
+-  **1,500+ student registrations**
+-  **1,300+ active users**
+-  Hundreds of shared academic resources
+-  An active Q&A community
+-  Student-driven announcement sharing
 
 The rapid adoption highlighted a significant need for a platform that connected students beyond traditional university communication channels.
 
