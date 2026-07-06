@@ -71,7 +71,7 @@ This repository is preserved as a portfolio project demonstrating the applicatio
 
 ---
 
-## ✍️ Student Blogs
+## Student Blogs
 
 - Publish articles
 - Share experiences
@@ -80,7 +80,7 @@ This repository is preserved as a portfolio project demonstrating the applicatio
 
 ---
 
-## 📄 Past Papers Repository
+## Past Papers Repository
 
 - Upload past papers
 - Download previous exams
@@ -89,7 +89,7 @@ This repository is preserved as a portfolio project demonstrating the applicatio
 
 ---
 
-## 👤 User Accounts
+## User Accounts
 
 - Student Registration
 - Secure Login
