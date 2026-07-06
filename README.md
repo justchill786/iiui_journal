@@ -278,7 +278,7 @@ If you found this project interesting, consider giving it a ⭐ on GitHub.
 
 ---
 
-# 📄 License
+# License
 
 This project is licensed under the MIT License.
 
