@@ -51,9 +51,9 @@ This repository is preserved as a portfolio project demonstrating the applicatio
 
 ---
 
-# ✨ Features
+# Features
 
-## ❓ Q&A Community
+## Q&A Community
 
 - Ask academic questions
 - Answer student queries
@@ -62,7 +62,7 @@ This repository is preserved as a portfolio project demonstrating the applicatio
 
 ---
 
-## 📢 University Announcements
+## University Announcements
 
 - Important university updates
 - Department notices
