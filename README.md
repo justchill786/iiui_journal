@@ -244,7 +244,7 @@ Perhaps the biggest lesson was seeing how quickly a well-designed solution can g
 
 ---
 
-# 🤝 Contributing
+# Contributing
 
 Contributions are welcome.
 
